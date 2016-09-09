@@ -1,0 +1,23 @@
+function getoffset(Node, offset){
+	     if (Node==null) {//当该节点为body节点时，结束递归
+	        return offset;
+	    }
+	    if (!offset) {
+	        offset = {};
+	        offset.top = 0;
+	        offset.left = 0;
+	    }
+	    if(Node.getBoundingClientRect&&navigator.userAgent.toLowerCase().match(/.(msie)/)!=null){
+	    	offset.top += Node.getBoundingClientRect.top;
+	   		offset.left += Node.getBoundingClientRect.left;
+	   		return offset;
+	    }
+	    else
+	    {
+	    	 offset.top += Node.offsetTop;
+	   		 offset.left += Node.offsetLeft;
+	    }
+	   
+	    return getoffset(Node.offsetParent, offset);//向上累加offset里的值
+	}
+getoffset(document.getElementById("aaa"))
